@@ -13,9 +13,9 @@ cask "dreamd" do
   # keeps the CI bump a three-token substitution.
   arch arm: "aarch64-apple-darwin", intel: "x86_64-apple-darwin"
 
-  version "0.3.0"
-  sha256 arm:   "109f8d927850c1d6baa08fc7e8dd2bfa1559c49aa669b7747dc3b7ac8e66fe81",
-         intel: "17d37d117b133c32d214a6eaffd7ed82cfdd8e827c3adeb116e4182edafa6f4d"
+  version "0.4.0"
+  sha256 arm:   "2282dde3a693b6b2ae78188352d1eb116056aadc49b00c0db514e9e03719ba35",
+         intel: "f5ea63a525045f5bf809b5167ff54c7830eb44dd0f8d2427f8e9265a6d0dec49"
 
   url "https://github.com/bongofongo/dreamd/releases/download/v#{version}/dreamd-#{version}-#{arch}.zip",
       # Required by `brew audit`: the url host differs from the homepage host.
