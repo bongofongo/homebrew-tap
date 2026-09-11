@@ -17,9 +17,9 @@ cask "dreamd" do
   sha256 arm:   "9de915a5f93e94f54a6a37a6bafdadbd0f225dead62ee190b75e867aecce9c43",
          intel: "28b1170f4927374b84aa87a197e26b14fc0c7f942242bfbfa5e0ebf49e6f2a6f"
 
-  url "https://github.com/bongofongo/dreamd/releases/download/v#{version}/dreamd-#{version}-#{arch}.zip",
-      # Required by `brew audit`: the url host differs from the homepage host.
-      verified: "github.com/bongofongo/dreamd/"
+  # No `verified:` — Homebrew 6 deprecated the parameter and warns on every
+  # brew run that loads the cask; the url host is checked by default now.
+  url "https://github.com/bongofongo/dreamd/releases/download/v#{version}/dreamd-#{version}-#{arch}.zip"
   name "dreamd"
   desc "GUI markdown reader with a highlight-to-agent loop"
   homepage "https://fongo.uk/dreamd"
@@ -29,10 +29,13 @@ cask "dreamd" do
     strategy :github_latest
   end
 
-  # Must equal bundle.macOS.minimumSystemVersion in src-tauri/tauri.conf.json.
-  # The bare symbol is ">= that version", not "exactly": brew resolves it to
-  # "Required: macOS >= 10.15". `brew style` rewrites ">= :catalina" to this.
-  depends_on macos: :catalina
+  # The app's floor is bundle.macOS.minimumSystemVersion in
+  # src-tauri/tauri.conf.json (10.15), but Homebrew dropped Catalina from
+  # `depends_on macos:` — naming it is a hard error, not a warning — so this
+  # is Homebrew's own floor, the oldest symbol it still accepts. The bare
+  # symbol is ">= that version", not "exactly"; `brew style` rewrites
+  # ">= :big_sur" to this.
+  depends_on macos: :big_sur
 
   app "dreamd.app"
   # The CLI is the same executable the window runs — one binary, so the command
